@@ -11,6 +11,36 @@
   </head>
 
   <body>
+    <header>
+      <%= link_to "Bookers",root_path %>
+      <nav>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "Users", users_path %></li>
+            <li><%= link_to "Books", books_path %></li>
+            <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "About", about_path %></li>
+            <li><%= link_to "Sign up", new_user_registration_path %></li>
+            <li><%= link_to "Log in", new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+    
+    <main>
+      <h1>Welcome to<strong>Bookers</strong>!!</h1>
+      <p>In <strong>Bookers</strong>,</p>
+      <p>you can share and exchange  your opinions ,</p>
+      <p>inpressions , and emotions</p>
+      <br>
+      <p>about various books!</p>
+    </main>
+    
+    <footer>
+      <p>CopyRight Infratop.inc</p>
+    </footer>
     <%= yield %>
   </body>
 </html>
