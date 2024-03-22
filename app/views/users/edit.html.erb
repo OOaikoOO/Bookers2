@@ -1,27 +1,25 @@
-<h1>ユーザーの</h1>
+<h1>ユーザーの編集</h1>
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <h2>User info</h2>
-      <div class="form-group">
-        <label for="user_name">Name</label>
-        <input class="form-control name" type="text"
-        name="user[name]" id="user_name">
-      </div>
-      <div class="form-group">
-        <label for="user_image">Image</label>
-        <input class="form-control-file user_image" accept="image/*"
-         type="file" name="user[profile_image]" id="user_profile_image">
-      </div>
-      <div class="form-group">
-        <label for="user_introduction"></label>
-        <textarea class="form-control introduction" name="user[introduction]"
-         id="user_introduction"></textarea>
-      </div>
-      <div class="form-group">
-        <input type="submit" name="commit" value="Update User"
-         class="btn btn-secondary" data-disable-with="Update User">
-      </div>
+      <%= form_with(model: @user, local: true) do |f| %>
+        <div class="form-group">
+          <%= f.label :user_name, "Name" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :user_image, "Image" %>
+          <%= f.file_field :profile_image, class: "form-control-file", accept: "image/*" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :user_introduction, "Introduction" %>
+          <%= f.text_area :introduction, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit class: "btn btn-secondary" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

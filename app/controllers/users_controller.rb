@@ -18,4 +18,9 @@ class UsersController < ApplicationController
     @users = User.all
     @books = Book.all
   end
+  
+  private
+  def user_params
+    params.require(:user).permit(:name, :profile_image, :introduction)
+  end
 end
