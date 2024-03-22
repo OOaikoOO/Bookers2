@@ -1,65 +1,67 @@
-<div>
+<h1>ユーザーの詳細</h1>
   <div class="container px-5 px-sm-0">
     <div class="row">
       <div class="col-md-3">
         <h2>User info</h2>
-        <%= image_tag current_user.get_profile_image %>
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>name</th>
-              <th><%= current_user.name %></th>
-            </tr>
-            <tr>
-              <th>introduction</th>
-              <td><%= current_user.introduction %></td>
-            </tr>
-          </tbody>
-        </table>
+          <%= image_tag current_user.get_profile_image %>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>name</th>
+                  <th><%= current_user.name %></th>
+                </tr>
+                <tr>
+                  <th>introduction</th>
+                    <td><%= current_user.introduction %></td>
+                </tr>
+              </tbody>
+            </table>
         
-        <div class="row">
-          <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block" do %>
-            <span><i class="fas fa-user-gear"></i></span>
-          <% end %>
-        </div>
+            <div class="row">
+              <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block" do %>
+                <span><i class="fas fa-user-gear"></i></span>
+              <% end %>
+            </div>
         
-        <h2 class="mt-3">New book</h2>
-        <%= form_with model: Book.new do |f| %>
-          <div class="form-group">
-            <%= f.label :title %>
-            <%= f.text_field :title, class: "form-control" %>
-          </div>
-          <div class="form-group">
-            <%= f.label :body %>
-            <%= f.text_area :body, class: "form-control" %>
-          </div>
-          <%= f.submit 'Create Book', class: "btn btn-success" %>
-        <% end %>
-      </div>
-      
-       <div class="col-md-8 offset-md-1">
-        <h2>Books</h2>
-        <table class="table table-hover table-inverse">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Title</th>
-              <th>Opinion</th>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @books.each do |book| %>
-              <tr>
-                <td>
-                  <%= image_tag book.user.get_profile_image(100,100) %>
-                </td>
-                <td><%= link_to book.title, book_path(book) %></td>
-                <td><%= book.body %></td>
-              </tr>
+            <h2 class="mt-3">New book</h2>
+            <%= form_with model: Book.new do |f| %>
+              <div class="form-group">
+                <%= f.label :title, "Title", class: "control-label" %>
+                <%= f.text_field :title, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :opinion, "Opinion", class: "control-label" %>
+                <%= f.text_area :opinion, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.submit class: "btn btn-success" %>
+              </div>
             <% end %>
-          </tbody>
-        </table>
+
+            <div class="col-md-8 offset-md-1">
+              <h2>Books</h2>
+                <table class="table table-hover table-inverse">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Title</th>
+                      <th>Opinion</th>
+                      <th colspan="3"></th>
+                    </tr>
+                  </thead>
+                    <tbody>
+                      <% @books.each do |book| %>
+                        <tr>
+                          <td>
+                            <%= image_tag book.user.get_profile_image(100,100) %>
+                          </td>
+                          <td><%= link_to book.title, book_path(book) %></td>
+                          <td><%= book.body %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                </table>
+            </div>
       </div>
     </div>
   </div>
