@@ -40,9 +40,40 @@
             </td>
             <td><%= link_to book.title, book_path(book) %></td>
             <td><%= book.body %></td>
+            <td>
+              <% if book.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to "♥", book_favorite_path(book), method: :delete, remote: true, class: "favorite-link", data: { "book-id" => book.id } %>
+                  <span id="favorite_count_<%= book.id %>"><%= book.favorites.count %></span>
+                </p>
+              <% else %>
+                <p>
+                  <%= link_to "♡", book_favorite_path(book), method: :post, remote: true, class: "favorite-link", data: { "book-id" => book.id } %>
+                  <span id="favorite_count_<%= book.id %>"><%= book.favorites.count %></span>
+                </p>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 </div>
+
+<script>
+  $(function() {
+    $(document).on('ajax:success', '.favorite-link', function(event) {
+      var link = $(this);
+      var bookId = link.data('book-id');
+      var count = event.detail[0].favorites_count;
+      $('#favorite_count_' + bookId).text(count);
+    });
+
+    $(document).on('ajax:success', '.favorite-link', function(event) {
+      var link = $(this);
+      var bookId = link.data('book-id');
+      var count = event.detail[0].favorites_count;
+      $('#favorite_count_' + bookId).text(count);
+    });
+  });
+</script>
