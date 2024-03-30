@@ -1,12 +1,12 @@
-<div>
-  <%= flash[:notice] %>
-</div>
+<div><%= flash[:notice] %></div>
+
 <div class="container px-5 px-sm-0">
   <div class="row">
     <div class="col-md-3">
       <%= render 'users/info', user: @user %>
       <%= render 'users/newbook', user: @user %>
     </div>
+    
     <div class="col-md-8 offset-md-1">
       <h2>Book detail</h2>
       <table class="table">
@@ -20,6 +20,7 @@
             </td>
             <td><%= link_to @book.title, book_path(@book) %></td>
             <td><%= @book.body %></td>
+            <td><%= render 'favorite', book: @book %></td>
             <% if @book.user == current_user %>
               <td><%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to "Destroy", book_path(@book), method: :delete, data: { confirm: "本当に消しますか？" }, class: "btn btn-danger" %></td>
@@ -29,7 +30,10 @@
           </tr>
           <tr>
             <td>
-              <%= render 'comment', book_comment: @book_comment, book: @book %>
+              <%= render 'comment', book_comment: @book_comment %>
+              <div>
+                <%= render 'layouts/book_comment_error', book_comment: @book_comment, user: @user %>
+              </div>
             </td>
           </tr>
         </tbody>

@@ -1,0 +1,8 @@
+<% if book_comment.errors.any? %>
+  <%= book_comment.errors.count %>件のエラーが発生しました
+  <ul>
+    <% book_comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
