@@ -5,11 +5,6 @@
   <div class="row">
     <div class="col-md-3">
       <%= render 'info', user: @user %>
-      <div class="row">
-        <%= link_to edit_user_path, class: "btn btn-outline-secondary btn-block" do %>
-          <span><i class="fas fa-user-cog"></i></span>
-        <% end %>
-      </div>
       <%= render 'newbook', user: @user %>
     </div>
     <div class="col-md-8 offset-md-1">
@@ -28,7 +23,7 @@
             <tr>
               <td>
                 <%= link_to user_path(book.user) do %>
-                  <%= image_tag book.user.get_profile_image(100, 100) %>
+                  <%= image_tag book.user.get_profile_image(50, 50) %>
                 <% end %>
               </td>
               <td><%= link_to book.title, book_path(book) %></td>

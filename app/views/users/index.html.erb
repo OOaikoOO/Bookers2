@@ -1,12 +1,7 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
     <div class="col-md-3">
-      <%= render partial: 'info', locals: { user: @user } %>
-      <div class="row">
-        <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block" do %>
-          <span><i class="fas fa-user-cog"></i></span>
-        <% end %>
-      </div>
+      <%= render 'info', user: @user %>
       <%= render 'newbook', users: @users %>
     </div>
     <div class="col-md-8 offset-md-1">
@@ -22,7 +17,7 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= image_tag user.profile_image, size: "100x100" %></td>
+            <td><%= image_tag user.profile_image, size: "50x50" %></td>
             <td><%= user.name %></td>
             <td></td>
             <td><%= link_to "Show", user_path(user) %></td>

@@ -1,13 +1,11 @@
-<% book.favorite_by?(current_user) %>
+<% if book.favorited_by?(current_user) %>
   <p>
-    <%= link_to book_favorite_path(book), method: :delete do %>
-      ♥<%= book.favorites.count %> いいね
-    <% end %>
+    <%= link_to "♥", book_favorite_path(book), method: :delete, remote: true, class: "favorite-link", data: { "book-id" => book.id } %>
+    <span id="favorite_count_<%= book.id %>"><%= book.favorites.count %></span>
   </p>
-  <% else %>
+<% else %>
   <p>
-    <%= link_to book_favorite_path(book), method: :post do %>
-      ♡<%= book.favorites.count %> いいね
-    <% end %>
+    <%= link_to "♡", book_favorite_path(book), method: :post, remote: true, class: "favorite-link", data: { "book-id" => book.id } %>
+    <span id="favorite_count_<%= book.id %>"><%= book.favorites.count %></span>
   </p>
 <% end %>
