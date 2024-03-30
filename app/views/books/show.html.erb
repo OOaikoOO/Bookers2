@@ -27,6 +27,11 @@
               <td></td>
             <% end %>
           </tr>
+          <tr>
+            <td>
+              <%= render 'comment', book_comment: @book_comment, book: @book %>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
