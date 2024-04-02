@@ -19,7 +19,9 @@
           <tr>
             <td><%= image_tag user.profile_image, size: "50x50" %></td>
             <td><%= user.name %></td>
-            <td></td>
+            <td>フォロー数: <%= user.followings.count %></td>
+            <td>フォロワー数: <%= user.followers.count %></td>
+            <td><%= render "relationships/follow", user: user, options: { class: "follow-link" } %></td>
             <td><%= link_to "Show", user_path(user) %></td>
           </tr>
         <% end %>
