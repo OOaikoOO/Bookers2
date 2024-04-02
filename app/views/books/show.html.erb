@@ -32,6 +32,7 @@
               <% end %>
               <%= @book.favorites.count %>
             </td>
+            <td>コメント数： <%= @book.book_comments.count %></td>
             <% if @book.user == current_user %>
               <td><%= link_to "Edit", edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to "Destroy", book_path(@book), method: :delete, data: { confirm: "本当に消しますか？" }, class: "btn btn-danger" %></td>
@@ -39,16 +40,11 @@
               <td></td>
             <% end %>
           </tr>
-          <tr>
-            <td>
-              <%= render 'comment', book_comment: @book_comment %>
-              <div>
-                <%= render 'layouts/book_comment_error', book_comment: @book_comment, user: @user %>
-              </div>
-            </td>
-          </tr>
         </tbody>
       </table>
+      <%= render 'layouts/book_comment_error', book_comment: @book_comment, user: @user %>
+      <%= render "comment", book: @book %>
+      <%= render "form", book: @book, book_comment: @book_comment %>
     </div>
   </div>
 </div>
