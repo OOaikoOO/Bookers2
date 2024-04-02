@@ -1,11 +1,23 @@
-<% if @book.favorited_by?(current_user) %>
-  <p>
-    <%= link_to "♥", book_favorite_path(@book), method: :delete, remote: true, class: "favorite-link", data: { "book-id" => @book.id } %>
-    <span id="favorite_count_<%= @book.id %>"><%= @book.favorites.count %></span>
-  </p>
+<% if current_user.favorites.exists?(book_id: book.id) %>
+  <%= link_to "♥", book_favorites_path(book), method: :delete, remote: true, class: "favorite-link", data: { "book-id" => book.id, "redirect" => true } %>
 <% else %>
-  <p>
-    <%= link_to "♡", book_favorite_path(@book), method: :post, remote: true, class: "favorite-link", data: { "book-id" => @book.id } %>
-    <span id="favorite_count_<%= @book.id %>"><%= @book.favorites.count %></span>
-  </p>
+  <%= link_to "♡", book_favorites_path(book), method: :post, remote: true, class: "favorite-link", data: { "book-id" => book.id, "redirect" => true } %>
 <% end %>
+<span id="favorite_count_<%= book.id %>"><%= book.favorites.count %></span>
+
+<script>
+  $(function() {
+    $(document).on('ajax:success', '.favorite-link', function(event) {
+      var link = $(this);
+      var bookId = link.data('book-id');
+      var count = event.detail[0].favorites_count;
+      $('#favorite_count_' + bookId).text(count);
+      
+      // リダイレクトを行うためのコード
+      var redirect = link.data('redirect');
+      if (redirect === 'true') {
+        window.location.href = "<%= book_path(book) %>";
+      }
+    });
+  });
+</script>
