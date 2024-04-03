@@ -40,4 +40,16 @@ class User < ApplicationRecord
   def already_favorited?(book)
     self.favorites.exists?(book_id: book.id)
   end
+  
+  def self.search_for(content, method)
+    if method == 'perfect'
+      User.where(name: content)
+    elsif method == 'forward'
+      User.where('name LIKE ?', content + '%')
+    elsif method == 'backward'
+      User.where('name LIKE ?', '%' + content)
+    else
+      User.where('name LIKE ?', '%' + content + '%')
+    end
+  end  
 end
