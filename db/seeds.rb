@@ -10,8 +10,8 @@
   name = Faker::Creature::Animal.name
   email = Faker::Internet.email
   password = "password"
-  profile_image = Faker::LoremFlickr.image(size: "50x50", is_gray: false)
-  user = User.new(name: name, email: email, password: password, password_confirmation: password)
+  profile_image = Faker::LoremFlickr.image(size: "100x100")
+  user = User.new(name: name, email: email, password: password, password_confirmation: password, image: profile_image)
   user.profile_image.attach(io: URI.open(profile_image), filename: 'profile_image.jpg')
   user.save!
 end
@@ -22,3 +22,11 @@ end
   body = Faker::Lorem.sentence
   Book.create!(user_id: user_id, title: title, body: body)
 end
+
+#relastionship
+users = User.all
+user  = users.first
+following = users[2..10]
+followers = users[2..10]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }
